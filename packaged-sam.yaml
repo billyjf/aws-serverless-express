@@ -38,7 +38,7 @@ Outputs:
 Resources:
   ApiGatewayApi:
     Properties:
-      DefinitionUri: s3://api-gateway-auth-poc/31edadf86a916d60d164cae9790a1c21
+      DefinitionUri: s3://api-gateway-auth-poc/fde217d17409f024de15f66e2fc3e256
       StageName: prod
       Variables:
         ServerlessExpressLambdaFunctionName:
@@ -87,7 +87,7 @@ Resources:
     Type: AWS::IAM::Role
   apiGatewayAuthPOC:
     Properties:
-      CodeUri: s3://api-gateway-auth-poc/021ce92cff89e1b69df9c8d4e1ab6d21
+      CodeUri: s3://api-gateway-auth-poc/6dc5808c89f94890a97c1a886694bacc
       Events:
         ProxyApiGreedy:
           Properties:

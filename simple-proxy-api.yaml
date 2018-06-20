@@ -5,6 +5,21 @@ info:
 basePath: /prod
 schemes:
 - https
+securityDefinitions:
+  "jwt-authorizer":
+    type: apiKey
+    name: Authorization
+    in: header
+    x-amazon-apigateway-authtype:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+    x-amazon-apigateway-authorizer:
+      type: token
+      authorizerUri: "arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:438053794079:function:api-gateway-jwt-authorizer/invocations"
+      authorizerCredentials: "arn:aws:iam::438053794079:role/api-gateway-invoke-jwt-authorizer"
+      identityValidationExpression: "[a-zA-Z0-9\\-_]*"
+      authorizerResultTtlInSeconds: 1  # TODO Default 300
 paths:
   /:
     x-amazon-apigateway-any-method:
@@ -62,6 +77,8 @@ paths:
         required: true
         type: string
       responses: {}
+      security:
+      - jwt-authorizer: []
       x-amazon-apigateway-integration:
         uri: arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:438053794079:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
         httpMethod: POST
